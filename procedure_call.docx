@@ -1,0 +1,42 @@
+mysql> select * from Sales;
++---------------+------+---------+------------+----------+
+| Employee_Name | Year | Country | Product    | Sale     |
++---------------+------+---------+------------+----------+
+| Bob           | 2017 | US      | Computer   | 15000.00 |
+| Bob           | 2018 | US      | Computer   | 10000.00 |
+| Bob           | 2019 | US      | TV         | 20000.00 |
+| Joseph        | 2017 | India   | Laptop     | 10000.00 |
+| Joseph        | 2018 | India   | Laptop     | 15000.00 |
+| Joseph        | 2019 | India   | TV         | 20000.00 |
+| Peter         | 2017 | Canada  | Mobile     | 20000.00 |
+| Peter         | 2018 | Canada  | Calculator |  1500.00 |
+| Peter         | 2019 | Canada  | Mobile     | 25000.00 |
++---------------+------+---------+------------+----------+
+9 rows in set (0.16 sec)
+
+mysql> delimiter //
+mysql> create procedure sales_procedure()
+    -> begin
+    -> select Employee_name,Country,Sale from Sales
+    -> where Sale >1500;
+    -> end //
+Query OK, 0 rows affected (0.29 sec)
+
+mysql> call sales_procedure()
+    -> ;
+    -> //
++---------------+---------+----------+
+| Employee_name | Country | Sale     |
++---------------+---------+----------+
+| Bob           | US      | 15000.00 |
+| Bob           | US      | 10000.00 |
+| Bob           | US      | 20000.00 |
+| Joseph        | India   | 10000.00 |
+| Joseph        | India   | 15000.00 |
+| Joseph        | India   | 20000.00 |
+| Peter         | Canada  | 20000.00 |
+| Peter         | Canada  | 25000.00 |
++---------------+---------+----------+
+8 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
