@@ -1,0 +1,148 @@
+mysql> insert into studnt(Rollno, Name, Course) values(3, 'Vida', 'c' ),(4, 'jhanu', 'c++');
+Query OK, 2 rows affected (0.11 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from studnt;
++--------+-------+--------+
+| Rollno | Name  | Course |
++--------+-------+--------+
+|      1 | Sai   | c/c++  |
+|      2 | Vidya | c      |
+|      3 | Vida  | c      |
+|      4 | jhanu | c++    |
++--------+-------+--------+
+4 rows in set (0.00 sec)
+
+create table student(Rollno int primary key, name varchar(50));
+Query OK, 0 rows affected (1.10 sec)
+
+mysql> insert into student(Rollno, name) values(3, 'Vida' ),(2, 'jhanu'),(1, 'Vidya');
+Query OK, 3 rows affected (0.35 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from student;
++--------+-------+
+| Rollno | name  |
++--------+-------+
+|      1 | Vidya |
+|      2 | jhanu |
+|      3 | Vida  |
++--------+-------+
+3 rows in set (0.00 sec)
+
+mysql> create table student1NF(Roll_no int, Course varchar(40), foreign key(Roll_no) references student(Rollno));
+Query OK, 0 rows affected (2.19 sec)
+
+mysql> insert into student1NF(Roll_no, Course) values(3, 'c' ),(2, 'c++'),(1, 'c'),(1,'c++');
+Query OK, 4 rows affected (0.18 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from student1NF;
++---------+--------+
+| Roll_no | Course |
++---------+--------+
+|       3 | c      |
+|       2 | c++    |
+|       1 | c      |
+|       1 | c++    |
++---------+--------+
+4 rows in set (0.00 sec)
+
+
+==============================2NF=================================
+
+mysql> select * from Departmnt;
++--------+---------+-----------+
+| emp_id | dept_id | location  |
++--------+---------+-----------+
+|      1 |     103 | Hyderabad |
+|      2 |     102 | Bengaluru |
+|      3 |     101 | Pune      |
++--------+---------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> create table department_info(emp_id int primary key, dept_id int);
+Query OK, 0 rows affected (1.30 sec)
+
+
+mysql> insert into department_info(emp_id, dept_id) values(3, 101 ),(2,102),(1, 103);
+Query OK, 3 rows affected (0.15 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from department_info;
++--------+---------+
+| emp_id | dept_id |
++--------+---------+
+|      1 |     103 |
+|      2 |     102 |
+|      3 |     101 |
++--------+---------+
+3 rows in set (0.02 sec)
+
+mysql> create table department_info1(dept_id int primary key, location varchar(60));
+Query OK, 0 rows affected (1.61 sec)
+
+mysql> insert into department_info1(dept_id, location) values(3, 'Pune' ),(2,'Bengaluru'),(1, 'Hyderabad');
+Query OK, 3 rows affected (0.17 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from department_info1;
++---------+-----------+
+| dept_id | location  |
++---------+-----------+
+|       1 | Hyderabad |
+|       2 | Bengaluru |
+|       3 | Pune      |
++---------+-----------+
+3 rows in set (0.00 sec)
+
+
+
+===========================3NF===============================
+
+select * from student_info;
++---------+-----------+------------+---------+---------+
+| stud_id | stud_name | subject_id | subject | Address |
++---------+-----------+------------+---------+---------+
+|       1 | Vid       |        101 | DE      | Pune    |
+|       2 | Jhan      |        102 | BE      | KNR     |
+|       3 | viha      |        103 | CH      | HYD     |
++---------+-----------+------------+---------+---------+
+3 rows in set (0.00 sec)
+
+mysql> create table student_info1(stud_id int primary key, stud_name varchar(60),subject_id int, Address varchar(50) );
+Query OK, 0 rows affected (2.04 sec)
+
+
+mysql> insert into student_info1(stud_id, stud_name, subject_id, Address) values(1,'Vid',101, 'Pune' ),(2,'Jhan',102,'KNR'),(3,'viha',103,'HYD');
+Query OK, 3 rows affected (0.20 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from student_info1;
++---------+-----------+------------+---------+
+| stud_id | stud_name | subject_id | Address |
++---------+-----------+------------+---------+
+|       1 | Vid       |        101 | Pune    |
+|       2 | Jhan      |        102 | KNR     |
+|       3 | viha      |        103 | HYD     |
++---------+-----------+------------+---------+
+3 rows in set (0.00 sec)
+
+
+mysql> create table student_info2(subject_id int primary key, subject varchar(40));
+Query OK, 0 rows affected (0.78 sec)
+
+mysql> insert into student_info2(subject_id, subject  ) values (101,'DE'),(102,'BE'),(103,'CH');
+Query OK, 3 rows affected (0.21 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from student_info2;
++------------+---------+
+| subject_id | subject |
++------------+---------+
+|        101 | DE      |
+|        102 | BE      |
+|        103 | CH      |
++------------+---------+
+3 rows in set (0.00 sec)
+
