@@ -1,0 +1,41 @@
+mysql>  select * from student
+    -> ;
++--------+-------+
+| Rollno | name  |
++--------+-------+
+|      1 | Vidya |
+|      2 | jhanu |
+|      3 | Vida  |
++--------+-------+
+3 rows in set (0.17 sec)
+
+mysql> delimiter $$
+mysql> create procedure curdemo(id1 int)
+    ->      begin
+    ->      declare sname varchar(255);
+    ->      declare cur1 cursor for select name from student where Rollno=id1;
+    ->      open cur1;
+    ->      fetch cur1 into sname;
+    ->      select sname;
+    ->      close cur1;
+    ->      end $$
+Query OK, 0 rows affected (0.64 sec)
+
+mysql> delimiter;
+    -> $$
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'delimiter' at line 1
+mysql> 
+mysql> 
+mysql> delimiter ;
+mysql> call curdemo(3) ;
++-------+
+| sname |
++-------+
+| Vida  |
++-------+
+1 row in set (0.01 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> 
+
