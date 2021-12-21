@@ -39,6 +39,20 @@ Query OK, 0 rows affected (0.01 sec)
 
 mysql> 
 
+mysql>  select * from employees;
++----+--------+------+--------+
+| id | name   | age  | salary |
++----+--------+------+--------+
+|  1 | jhanu  |   40 |   3000 |
+|  2 | Vidya  |   22 |   3000 |
+|  3 | Pavi   |   19 |   4000 |
+|  4 | jhan   |   40 |   2000 |
+|  5 | Vidyan |   22 |   5000 |
+|  6 | Pavvi  |   19 |   3000 |
++----+--------+------+--------+
+6 rows in set (0.00 sec)
+
+
 mysql> delimiter $$
 mysql> create procedure cursordemo()
     -> begin 
