@@ -39,3 +39,81 @@ Query OK, 0 rows affected (0.01 sec)
 
 mysql> 
 
+mysql> delimiter $$
+mysql> create procedure cursordemo()
+    -> begin 
+    ->     declare ename varchar(15);
+    ->     declare emp_id int;
+    ->     declare emp_salary float;
+    ->     declare done int default 0;
+    ->     declare c2 cursor for select id,name,salary from employees;
+    ->     DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+    ->     open c2;
+    ->     cursorloop:loop
+    ->     if done = true then  
+    ->         leave cursorloop;
+    ->     end if;
+    ->     fetch c2 into emp_id,ename,emp_salary;
+    ->     select emp_id,ename,emp_salary ;
+    ->     end loop cursorloop;
+    ->     close c2;
+    ->     end $$
+Query OK, 0 rows affected (0.19 sec)
+
+mysql> delimiter ;
+mysql> call cursordemo() ;
++--------+-------+------------+
+| emp_id | ename | emp_salary |
++--------+-------+------------+
+|      1 | jhanu |       3000 |
++--------+-------+------------+
+1 row in set (0.00 sec)
+
++--------+-------+------------+
+| emp_id | ename | emp_salary |
++--------+-------+------------+
+|      2 | Vidya |       3000 |
++--------+-------+------------+
+1 row in set (0.00 sec)
+
++--------+-------+------------+
+| emp_id | ename | emp_salary |
++--------+-------+------------+
+|      3 | Pavi  |       4000 |
++--------+-------+------------+
+1 row in set (0.00 sec)
+
++--------+-------+------------+
+| emp_id | ename | emp_salary |
++--------+-------+------------+
+|      4 | jhan  |       2000 |
++--------+-------+------------+
+1 row in set (0.00 sec)
+
++--------+--------+------------+
+| emp_id | ename  | emp_salary |
++--------+--------+------------+
+|      5 | Vidyan |       5000 |
++--------+--------+------------+
+1 row in set (0.00 sec)
+
++--------+-------+------------+
+| emp_id | ename | emp_salary |
++--------+-------+------------+
+|      6 | Pavvi |       3000 |
++--------+-------+------------+
+1 row in set (0.00 sec)
+
++--------+-------+------------+
+| emp_id | ename | emp_salary |
++--------+-------+------------+
+|      6 | Pavvi |       3000 |
++--------+-------+------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> 
+
+
+
